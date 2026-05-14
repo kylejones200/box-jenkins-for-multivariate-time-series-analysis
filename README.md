@@ -1,7 +1,7 @@
 # Box Jenkins for Multivariate Time Series Analysis
 
-**Published:** 2025-07-15
-**Medium:** [https://medium.com/@kyle-t-jones/box-jenkins-for-multivariate-time-series-analysis-9b7f2ffd2056](https://medium.com/@kyle-t-jones/box-jenkins-for-multivariate-time-series-analysis-9b7f2ffd2056)
+Published: 2025-07-15
+Medium: [https://medium.com/@kyle-t-jones/box-jenkins-for-multivariate-time-series-analysis-9b7f2ffd2056](https://medium.com/@kyle-t-jones/box-jenkins-for-multivariate-time-series-analysis-9b7f2ffd2056)
 
 ## About
 
