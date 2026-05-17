@@ -21,7 +21,6 @@ def main():
     matplotlib.use("Agg")
     import warnings
 
-    warnings.filterwarnings("ignore")
 
 
     # --- code cell ---
