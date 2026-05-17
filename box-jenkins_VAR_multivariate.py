@@ -2,7 +2,6 @@
 
 Magics and shell lines are commented out. Run with a normal Python interpreter."""
 
-
 # --- code cell ---
 
 import matplotlib.pyplot as plt
@@ -30,11 +29,9 @@ plt.grid()
 plt.savefig("Multivariate Time Series")
 plt.show()
 
-
 # --- code cell ---
 
 from statsmodels.tsa.stattools import adfuller
-
 
 # Function to test stationarity
 def check_stationarity(series, name):
@@ -44,7 +41,6 @@ def check_stationarity(series, name):
         print(f"{name} is not stationary. Differencing required.")
     else:
         print(f"{name} is stationary.")
-
 
 # Test stationarity for each series
 check_stationarity(data["Industrial_Production"], "Industrial Production")
@@ -120,7 +116,6 @@ plt.legend()
 plt.grid()
 plt.savefig("VAR Model Forecast.png")
 plt.show()
-
 
 # --- code cell ---
 
@@ -218,7 +213,6 @@ plt.tight_layout()
 plt.savefig("time_series_split_forecast.png")
 plt.show()
 
-
 # --- code cell ---
 
 import matplotlib.pyplot as plt
@@ -306,7 +300,6 @@ plt.tight_layout()
 plt.savefig("time_series_split_fold_5_forecast.png")
 plt.show()
 
-
 # --- code cell ---
 
 import matplotlib.pyplot as plt
@@ -336,16 +329,7 @@ plt.ylabel("Value")
 plt.grid()
 plt.show()
 
-
 # Check stationarity
-def check_stationarity(series, name):
-    result = adfuller(series)
-    print(f"{name}: p-value = {result[1]:.4f}")
-    if result[1] > 0.05:
-        print(f"{name} is not stationary. Differencing required.")
-    else:
-        print(f"{name} is stationary.")
-
 
 check_stationarity(data["Industrial_Production"], "Industrial Production")
 check_stationarity(data["Consumer_Price_Index"], "Consumer Price Index")
@@ -425,7 +409,6 @@ for i, col in enumerate(residuals.columns):
     dw_stat = durbin_watson(residuals[col])
     print(f"Durbin-Watson statistic for {col}: {dw_stat:.2f}")
 
-
 # --- code cell ---
 
 import matplotlib.pyplot as plt
@@ -457,16 +440,7 @@ plt.ylabel("Value")
 plt.grid()
 plt.show()
 
-
 # Check stationarity
-def check_stationarity(series, name):
-    result = adfuller(series)
-    print(f"{name}: p-value = {result[1]:.4f}")
-    if result[1] > 0.05:
-        print(f"{name} is not stationary. Differencing required.")
-    else:
-        print(f"{name} is stationary.")
-
 
 check_stationarity(data["Industrial_Production"], "Industrial Production")
 check_stationarity(data["Consumer_Price_Index"], "Consumer Price Index")
@@ -593,7 +567,6 @@ for i, col in enumerate(varma_residuals.columns):
     dw_stat_varma = durbin_watson(varma_residuals[col])
     print(f"VARMA - {col}: {dw_stat_varma:.2f}")
 
-
 # --- code cell ---
 
 from sklearn.preprocessing import StandardScaler
@@ -613,7 +586,6 @@ varma_fitted_model = varma_model.fit(maxiter=1000, disp=False)  # Increase itera
 
 # Check model fit summary
 print(varma_fitted_model.summary())
-
 
 # --- code cell ---
 
