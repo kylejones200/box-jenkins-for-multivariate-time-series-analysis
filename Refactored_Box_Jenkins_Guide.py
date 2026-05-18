@@ -17,15 +17,12 @@ from statsmodels.tsa.vector_ar.var_model import VAR
 
 def notebook_step_001() -> None:
     matplotlib.use("Agg")
-
     warnings.filterwarnings("ignore")
 
 
 def load_economic_data_from_fred_using_pandas_datare() -> None:
     start = datetime(2015, 1, 1)
-
     end = datetime.now()
-
     try:
         indpro_raw = web.DataReader("INDPRO", "fred", start, end)
         rsafs_raw = web.DataReader("RSAFS", "fred", start, end)
@@ -65,11 +62,8 @@ def visualize_multivariate_data_using_plotsmith() -> None:
 
 def check_stationarity_for_all_series() -> None:
     print("=" * 70)
-
     print("STATIONARITY TEST FOR MULTIVARIATE SERIES")
-
     print("=" * 70 + "\n")
-
     for col in data_var.columns:
         result = adfuller(data_var[col].dropna())
         print(f"{col}:")
@@ -81,9 +75,7 @@ def check_stationarity_for_all_series() -> None:
         print()
 
     data_var_diff = data_var.diff().dropna()
-
     print("\nAfter differencing:")
-
     for col in data_var_diff.columns:
         result = adfuller(data_var_diff[col].dropna())
         print(f"{col}: p-value = {result[1]:.4f}")
@@ -99,27 +91,17 @@ def check_stationarity_for_all_series() -> None:
 
 def test_granger_causality() -> None:
     print("=" * 70)
-
     print("GRANGER CAUSALITY TEST")
-
     print("=" * 70)
-
     print("\nTests if one series helps predict another.")
-
     print("Null hypothesis: X does NOT Granger-cause Y\n")
-
     col1, col2 = (data_var_diff.columns[0], data_var_diff.columns[1])
-
     print(f"\nTesting if {col2} Granger-causes {col1}:")
-
     print("=" * 70)
-
     gc_result = grangercausalitytests(
         data_var_diff[[col1, col2]], maxlag=5, verbose=False
     )
-
     print("\nSummary of p-values (F-test):")
-
     for lag in range(1, 6):
         p_value = gc_result[lag][0]["ssr_ftest"][1]
         print(f"  Lag {lag}: p-value = {p_value:.4f}", end="")
@@ -131,37 +113,23 @@ def test_granger_causality() -> None:
 
 def create_and_fit_var_model() -> None:
     print("=" * 70)
-
     print("VAR MODEL ESTIMATION")
-
     print("=" * 70 + "\n")
-
     model_var = VAR(data_var_diff)
-
     lag_order = model_var.select_order(maxlags=15)
-
     print("Lag Order Selection Criteria:")
-
     print(lag_order.summary())
-
     fitted_var = model_var.fit(lag_order.aic)
-
     print(f"\n✓ Fitted VAR({lag_order.aic}) model")
-
-    print(f"\nModel Summary:")
-
+    print("\nModel Summary:")
     print(fitted_var.summary())
 
 
 def get_residuals_and_visualize_using_plotsmith() -> None:
     print("=" * 70)
-
     print("VAR MODEL DIAGNOSTICS")
-
     print("=" * 70 + "\n")
-
     residuals_var = fitted_var.resid
-
     for col in residuals_var.columns:
         ps.plot_timeseries(
             residuals_var[col],
@@ -172,7 +140,6 @@ def get_residuals_and_visualize_using_plotsmith() -> None:
         )
 
     print("\nDurbin-Watson Test (should be close to 2):")
-
     for col in residuals_var.columns:
         dw_stat = durbin_watson(residuals_var[col].values)
         print(f"  {col}: {dw_stat:.2f}")
@@ -180,33 +147,23 @@ def get_residuals_and_visualize_using_plotsmith() -> None:
 
 def forecast_next_20_periods() -> None:
     print("=" * 70)
-
     print("VAR FORECASTING")
-
     print("=" * 70 + "\n")
-
     n_forecast = 20
-
     forecast_var = fitted_var.forecast(
         data_var_diff.values[-lag_order.aic :], steps=n_forecast
     )
-
     forecast_index = pd.date_range(
         start=data_var.index[-1],
         periods=n_forecast + 1,
         freq=data_var.index.freq or "ME",
     )[1:]
-
     forecast_var_df = pd.DataFrame(
         forecast_var, index=forecast_index, columns=data_var.columns
     )
-
     forecast_actual = forecast_var_df.cumsum() + data_var.iloc[-1]
-
     print("Forecast (first 10 periods):")
-
     print(forecast_actual.head(10))
-
     for col in data_var.columns:
         historical_subset = data_var[col].iloc[-100:]
         forecast_subset = forecast_actual[col]
