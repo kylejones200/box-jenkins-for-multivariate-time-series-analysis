@@ -1,0 +1,15 @@
+[package]
+name = "box_jenkins_for_multivariate_time_series_analysis_rs"
+description = "Python bindings (PyO3) for box_jenkins_for_multivariate_time_series_analysis_core"
+version.workspace = true
+edition.workspace = true
+license.workspace = true
+
+[lib]
+name = "box_jenkins_for_multivariate_time_series_analysis_rs"
+crate-type = ["cdylib"]
+
+[dependencies]
+box_jenkins_for_multivariate_time_series_analysis_core = { path = "../core" }
+pyo3 = { version = "0.28", features = ["extension-module"] }
+numpy = "0.28"

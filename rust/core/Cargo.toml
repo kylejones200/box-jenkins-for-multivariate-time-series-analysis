@@ -1,0 +1,9 @@
+[package]
+name = "box_jenkins_for_multivariate_time_series_analysis_core"
+description = "AR(1) multi-step forecast"
+version.workspace = true
+edition.workspace = true
+license.workspace = true
+
+[lib]
+path = "src/lib.rs"
